@@ -38,17 +38,17 @@ namespace Checkers
 
         Case_checker[,] Cases = new Case_checker[8, 8];
 
-        private const string black_checker = @"\black.png";
-        private const string white_checker = @"\white.png";
+        private const string black_checker_image = @".\Images\black.png";
+        private const string white_checker_image = @".\Images\white.png";
 
         private void Case_create() // Метод создания клеток
         {
+            
             for (int x = 0; x < 8; x++)
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    Cases[x, y].x = x;
-                    Cases[x, y].y = y;
+                    Cases[x, y] = new Case_checker() { x = x, y = y };
                 }
             }
         }
@@ -85,7 +85,13 @@ namespace Checkers
 
         private void Black_checkers_create (CheckForRules rule)
         {
-
+            for (int x = 5; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y = y + 2)
+                {
+                    Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
+                }
+            }
         }
         private void White_checkers_create(CheckForRules rule)
         {
@@ -94,6 +100,7 @@ namespace Checkers
 
         private void Game_Load(object sender, EventArgs e)
         {
+            Case_create();
             Game_Rule();
         }
     }
