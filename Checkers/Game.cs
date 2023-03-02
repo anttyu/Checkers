@@ -38,8 +38,8 @@ namespace Checkers
 
         Case_checker[,] Cases = new Case_checker[8, 8];
 
-        private const string black_checker_image = @".\Images\black.png";
-        private const string white_checker_image = @".\Images\white.png";
+        private const string black_checker_image = @".\black.png";
+        private const string white_checker_image = @".\white.png";
 
         private void Case_create() // Метод создания клеток
         {
