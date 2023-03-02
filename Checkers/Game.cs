@@ -14,10 +14,12 @@ namespace Checkers
     {
         public string GameRule { get; set; }
 
+        TableLayoutPanel tableLayoutPanel;
+
         public Game()
         {
             InitializeComponent();
-            TableLayoutPanel tableLayoutPanel = this.Controls["tableLayoutPanel1"] as TableLayoutPanel;
+            tableLayoutPanel = this.Controls["tableLayoutPanel1"] as TableLayoutPanel;
         }
 
         public class Case_checker
@@ -38,8 +40,8 @@ namespace Checkers
 
         Case_checker[,] Cases = new Case_checker[8, 8];
 
-        private const string black_checker_image = @".\black.png";
-        private const string white_checker_image = @".\white.png";
+        public const string black_checker_image = @".\black.png";
+        public const string white_checker_image = @".\white.png";
 
         private void Case_create() // Метод создания клеток
         {
@@ -48,7 +50,9 @@ namespace Checkers
             {
                 for (int y = 0; y < 8; y++)
                 {
-                    Cases[x, y] = new Case_checker() { x = x, y = y };
+                    Cases[x, y] = new Case_checker() { x = y, y = x };
+                    Cases[x, y].checker = tableLayoutPanel.GetControlFromPosition(y,x) as Button;
+                     
                 }
             }
         }
@@ -81,19 +85,109 @@ namespace Checkers
                     break;
 
             }
-        }
+        } //метод оперделения правил
 
-        private void Black_checkers_create (CheckForRules rule)
+        private void Black_checkers_create (CheckForRules rule)  // 1 Часть создания клеток для игры за черные
         {
             for (int x = 5; x < 8; x++)
             {
-                for (int y = 0; y < 8; y = y + 2)
+                if (x % 2 == 1)
                 {
-                    Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
+                    for (int y = 0; y < 8; y = y + 2)
+                    {
+                        Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
+                        Cases[x, y].have_checker = true;
+                        Cases[x, y].checker.Click += new EventHandler(Button_click);
+                    }
+                }
+                else
+                {
+                    for (int y = 1; y < 8; y = y + 2)
+                    {
+                        Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
+                        Cases[x, y].have_checker = true;
+                        Cases[x, y].checker.Click += new EventHandler(Button_click);
+                    }
                 }
             }
-        }
-        private void White_checkers_create(CheckForRules rule)
+            White_checkers_create_for_black();
+        } 
+        private void White_checkers_create_for_black ()  // 2 Часть создания клеток для игры за черные
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                if (x % 2 == 1)
+                {
+                    for (int y = 0; y < 8; y = y + 2)
+                    {
+                        Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
+                        Cases[x, y].have_checker = true;
+                    }
+                }
+                else
+                {
+                    for (int y = 1; y < 8; y = y + 2)
+                    {
+                        Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
+                        Cases[x, y].have_checker = true;
+                        if ()
+                    }
+                }
+            }
+
+        
+        
+        } 
+
+        private void White_checkers_create(CheckForRules rule)  // 1 Часть создания клеток для игры за белые
+        {
+            for (int x = 5; x < 8; x++)
+            {
+                if (x % 2 == 1)
+                {
+                    for (int y = 0; y < 8; y = y + 2)
+                    {
+                        Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
+                        Cases[x, y].have_checker = true;
+                        Cases[x, y].checker.Click += new EventHandler(Button_click);
+                    }
+                }
+                else
+                {
+                    for (int y = 1; y < 8; y = y + 2)
+                    {
+                        Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
+                        Cases[x, y].have_checker = true;
+                        Cases[x, y].checker.Click += new EventHandler(Button_click);
+                    }
+                }
+            }
+            Black_checkers_create_for_white();
+        } 
+        private void Black_checkers_create_for_white()  // 2 Часть создания клеток для игры за белые
+        {
+            for (int x = 0; x < 3; x++)
+            {
+                if (x % 2 == 1)
+                {
+                    for (int y = 0; y < 8; y = y + 2)
+                    {
+                        Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
+                        Cases[x, y].have_checker = true;
+                    }
+                }
+                else
+                {
+                    for (int y = 1; y < 8; y = y + 2)
+                    {
+                        Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
+                        Cases[x, y].have_checker = true;
+                    }
+                }
+            }
+        } 
+
+        private void Button_click (object sender, EventArgs e)
         {
 
         }
