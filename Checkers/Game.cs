@@ -23,11 +23,14 @@ namespace Checkers
 
         public class Case_checker
         {
-            public string checker_ID;    
             public bool have_checker;
-            public Color color_checker;
             public Button checker;
         }
+        public string temp_checker_Name;
+        public bool temp_have_checker;
+        public Color temp_color_checker;
+        public Button temp_checker;
+
         enum CheckForRules
         {
             pcblack,
@@ -59,7 +62,6 @@ namespace Checkers
                     Cases[x, y] = new Case_checker();                    
                     Cases[x, y].checker = tableLayoutPanel.GetControlFromPosition(x,y) as Button;
                     Cases[x, y].checker.Name = (x +""+ y);
-                    Cases[x, y].checker_ID = Cases[x, y].checker.Name;
                 }
             }
         }
@@ -297,7 +299,7 @@ namespace Checkers
             {
                 secondbutton = clickedbutton;
             }
-            if (Check_Move_Checker(x, y) == true)
+            if (Check_Move_Checker() == true)
             {
                 Swap_Two_Button();
             }
@@ -308,11 +310,6 @@ namespace Checkers
 
         }
 
-        private void Chec(Button clickedbutton, int x, int y) // Запонмить две выбранные кнопки
-        {
-            
-
-        }
         private void Button_Choice_Change_Color(Button clickedbutton)
         {
             clickedbutton.BackColor = Color.Gray;
@@ -355,31 +352,40 @@ namespace Checkers
             }
             
         }
-        private bool Check_Move_Checker(int x, int y)
+        private bool Check_Move_Checker()
         {
-            if (x == 7)
-            {
-                if (Cases[x - 1, y + 1].checker == firstbutton)
-                {
-                    return true;
-                }
-            }
+            int x = Convert.ToInt32(firstbutton.Name) / 10;
+            int y = Convert.ToInt32(firstbutton.Name) % 10;
+
             if (x == 0)
             {
-                if (Cases[x + 1, y + 1].checker == firstbutton)
+                if (Cases[x + 1, y - 1].checker == secondbutton)
                 {
                     return true;
                 }
             }
-            if (Cases[x + 1, y + 1].checker == firstbutton)
+            else if (x == 7)
             {
-                return true;
+                if (Cases[x - 1, y - 1].checker == secondbutton)
+                {
+                    return true;
+                }
             }
-            if (Cases[x - 1, y + 1].checker == firstbutton)
+            else
             {
-                return true;
+
+                if (Cases[x - 1, y - 1].checker == secondbutton)
+                {
+                    return true;
+                }
+                if (Cases[x + 1, y - 1].checker == secondbutton)
+                {
+                    return true;
+                }
+                
             }
-            else { return false; }
+            return false;
+                
         }
         private void Swap_Two_Button()
         {
@@ -405,8 +411,17 @@ namespace Checkers
             tableLayoutPanel.SetRow(Cases[x2, y2].checker, b1_row);
             tableLayoutPanel.SetColumn(Cases[x2, y2].checker, b1_col);
 
-            Cases[b1_row, b1_col].checker = Cases[x2, y2].checker;
-            Cases[b2_row, b2_col].checker = Cases[x1, y1].checker;
+
+            Cases[x1, y1].have_checker = !Cases[x1, y1].have_checker;
+            Cases[x2, y2].have_checker = !Cases[x2, y2].have_checker;
+
+            temp_checker_Name = Cases[x1, y1].checker.Name ;
+            Cases[x1, y1].checker.Name = Cases[x2, y2].checker.Name;
+            Cases[x2, y2].checker.Name = temp_checker_Name;
+
+            temp_checker = Cases[x1, y1].checker;
+            Cases[x1, y1].checker = Cases[x2, y2].checker;
+            Cases[x2, y2].checker = temp_checker;
 
         }
     }
