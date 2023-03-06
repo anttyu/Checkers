@@ -287,6 +287,7 @@ namespace Checkers
 
             
         }
+
         private void Button_click_clear_button (object sender, EventArgs e)
         {
             Check_move_checker_Color(firstbutton, Color.Black);
@@ -305,6 +306,7 @@ namespace Checkers
             }
            
         }
+
         private void Button_click_player2 (object sender, EventArgs e)
         {
 
@@ -318,6 +320,7 @@ namespace Checkers
         {
             clickedbutton.BackColor = Color.Black;
         }
+
         private void Check_move_checker_Color (Button clickedbutton, Color temp_clr) // метод покраски кнопок с возможным ходом для шашки
         {
             int x = Convert.ToInt32(clickedbutton.Name) / 10;
@@ -387,6 +390,7 @@ namespace Checkers
             return false;
                 
         }
+
         private void Swap_Two_Button()
         {
             int x1 = Convert.ToInt32(firstbutton.Name) / 10;
