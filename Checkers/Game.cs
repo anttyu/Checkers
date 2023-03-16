@@ -30,6 +30,8 @@ namespace Checkers
         public bool temp_have_checker;
         public Color temp_color_checker;
         public Button temp_checker;
+        public bool my_step;
+        
 
         enum CheckForRules
         {
@@ -75,23 +77,27 @@ namespace Checkers
                 
                 case ("pcwhite"):
                     rule = CheckForRules.pcwhite;
+                    my_step = true;
                     White_checkers_create(rule);
                     For_PC_Black_checkers_create_for_white();
                     break;
 
                 case ("pcblack"):
+                    my_step = false;
                     rule = CheckForRules.pcblack;
                     Black_checkers_create(rule);
                     For_PC_White_checkers_create_for_black();
                     break;
 
                 case ("playerwhite"):
+                    my_step = true;
                     rule = CheckForRules.playerwhite;
                     White_checkers_create(rule);
                     For_Player2_Black_checkers_create_for_white();
                     break;
 
                 case ("playerblack"):
+                    my_step = false;
                     rule = CheckForRules.playerblack;
                     Black_checkers_create(rule);
                     For_Player2_White_checkers_create_for_black();
@@ -272,46 +278,65 @@ namespace Checkers
 
         private void Button_click_player (object sender, EventArgs e)  // Игрок выбрал 1 кнопку
         {
-            Button clickedbutton = (Button)sender;
-
-            if (firstbutton != null)
+            if (my_step == true)
             {
-                Check_move_checker_Color(firstbutton, Color.Black);
+                Button clickedbutton = (Button)sender;
+
+                if (firstbutton != null)
+                {
+                    Check_move_checker_Color(firstbutton, Color.Black);
+                }
+
+                int x = Convert.ToInt32(clickedbutton.Name) / 10;
+                int y = Convert.ToInt32(clickedbutton.Name) % 10;
+
+                firstbutton = clickedbutton;
+                Check_move_checker_Color(clickedbutton, Color.Yellow);
             }
-
-            int x = Convert.ToInt32(clickedbutton.Name) / 10;
-            int y = Convert.ToInt32(clickedbutton.Name) % 10;
-            
-            firstbutton = clickedbutton;
-            Check_move_checker_Color(clickedbutton,Color.Yellow);
-
             
         }
 
         private void Button_click_clear_button (object sender, EventArgs e)
-        {
-            Check_move_checker_Color(firstbutton, Color.Black);
+        {   
+                Check_move_checker_Color(firstbutton, Color.Black);
 
-            Button clickedbutton = (Button)sender;
-            int x = Convert.ToInt32(clickedbutton.Name) / 10;
-            int y = Convert.ToInt32(clickedbutton.Name) % 10;
+                Button clickedbutton = (Button)sender;
+                int x = Convert.ToInt32(clickedbutton.Name) / 10;
+                int y = Convert.ToInt32(clickedbutton.Name) % 10;
 
-            if (firstbutton != null)
-            {
-                secondbutton = clickedbutton;
-            }
-            if (Check_Move_Checker() == true)
-            {
-                Swap_Two_Button();
-            }
-           
+                if (firstbutton != null)
+                {
+                    secondbutton = clickedbutton;
+                    if (Check_Move_Checker() == true)
+                    {
+
+                    Swap_Two_Button();
+
+                    }
+                }
+                  
         }
 
         private void Button_click_player2 (object sender, EventArgs e)
         {
+            if (my_step == false)
+            {
+                Button clickedbutton = (Button)sender;
+
+                if (firstbutton != null)
+                {
+                    Check_move_checker_Color(firstbutton, Color.Black);
+                }
+
+                int x = Convert.ToInt32(clickedbutton.Name) / 10;
+                int y = Convert.ToInt32(clickedbutton.Name) % 10;
+
+                firstbutton = clickedbutton;
+                Check_move_checker_Color(clickedbutton, Color.Yellow);
+
+            }
 
         }
-
         private void Button_Choice_Change_Color(Button clickedbutton)
         {
             clickedbutton.BackColor = Color.Gray;
@@ -326,32 +351,65 @@ namespace Checkers
             int x = Convert.ToInt32(clickedbutton.Name) / 10;
             int y = Convert.ToInt32(clickedbutton.Name) % 10;
 
-            if (x == 0)
+            if (my_step = true)
             {
-                if (Cases[x + 1, y - 1].have_checker == false)
+                if (x == 0)
                 {
-                    Cases[x + 1, y - 1].checker.BackColor = temp_clr;
+                    if (Cases[x + 1, y - 1].have_checker == false)
+                    {
+                        Cases[x + 1, y - 1].checker.BackColor = temp_clr;
+                    }
                 }
-            }
-            else if (x == 7)
-            {
-                if (Cases[x - 1, y - 1].have_checker == false)
+                else if (x == 7)
                 {
-                    Cases[x - 1, y - 1].checker.BackColor = temp_clr;
+                    if (Cases[x - 1, y - 1].have_checker == false)
+                    {
+                        Cases[x - 1, y - 1].checker.BackColor = temp_clr;
+                    }
+                }
+                else
+                {
+
+                    if (Cases[x - 1, y - 1].have_checker == false)
+                    {
+                        Cases[x - 1, y - 1].checker.BackColor = temp_clr;
+                    }
+                    if (Cases[x + 1, y - 1].have_checker == false)
+                    {
+                        Cases[x + 1, y - 1].checker.BackColor = temp_clr;
+                    }
+
                 }
             }
             else
             {
+                if (x == 0)
+                {
+                    if (Cases[x + 1, y + 1].have_checker == false)
+                    {
+                        Cases[x + 1, y + 1].checker.BackColor = temp_clr;
+                    }
+                }
+                else if (x == 7)
+                {
+                    if (Cases[x - 1, y + 1].have_checker == false)
+                    {
+                        Cases[x - 1, y + 1].checker.BackColor = temp_clr;
+                    }
+                }
+                else
+                {
 
-                if (Cases[x - 1, y - 1].have_checker == false)
-                {
-                    Cases[x - 1, y - 1].checker.BackColor = temp_clr;
+                    if (Cases[x - 1, y + 1].have_checker == false)
+                    {
+                        Cases[x - 1, y + 1].checker.BackColor = temp_clr;
+                    }
+                    if (Cases[x + 1, y + 1].have_checker == false)
+                    {
+                        Cases[x + 1, y + 1].checker.BackColor = temp_clr;
+                    }
+
                 }
-                if (Cases[x + 1, y - 1].have_checker == false)
-                {
-                    Cases[x + 1, y - 1].checker.BackColor = temp_clr;
-                }
-                
             }
             
         }
@@ -360,39 +418,74 @@ namespace Checkers
             int x = Convert.ToInt32(firstbutton.Name) / 10;
             int y = Convert.ToInt32(firstbutton.Name) % 10;
 
-            if (x == 0)
+            if (my_step == true)
             {
-                if (Cases[x + 1, y - 1].checker == secondbutton)
+                if (x == 0)
                 {
-                    return true;
+                    if (Cases[x + 1, y - 1].checker == secondbutton)
+                    {
+                        return true;
+                    }
                 }
-            }
-            else if (x == 7)
-            {
-                if (Cases[x - 1, y - 1].checker == secondbutton)
+                else if (x == 7)
                 {
-                    return true;
+                    if (Cases[x - 1, y - 1].checker == secondbutton)
+                    {
+                        return true;
+                    }
                 }
+                else
+                {
+
+                    if (Cases[x - 1, y - 1].checker == secondbutton)
+                    {
+                        return true;
+                    }
+                    if (Cases[x + 1, y - 1].checker == secondbutton)
+                    {
+                        return true;
+                    }
+
+                }
+                return false;
+
             }
             else
             {
+                if (x == 0)
+                {
+                    if (Cases[x + 1, y + 1].checker == secondbutton)
+                    {
+                        return true;
+                    }
+                }
+                else if (x == 7)
+                {
+                    if (Cases[x - 1, y + 1].checker == secondbutton)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
 
-                if (Cases[x - 1, y - 1].checker == secondbutton)
-                {
-                    return true;
+                    if (Cases[x - 1, y + 1].checker == secondbutton)
+                    {
+                        return true;
+                    }
+                    if (Cases[x + 1, y + 1].checker == secondbutton)
+                    {
+                        return true;
+                    }
+
                 }
-                if (Cases[x + 1, y - 1].checker == secondbutton)
-                {
-                    return true;
-                }
-                
+                return false;
             }
-            return false;
-                
         }
 
         private void Swap_Two_Button()
         {
+            
             int x1 = Convert.ToInt32(firstbutton.Name) / 10;
             int y1 = Convert.ToInt32(firstbutton.Name) % 10;
 
@@ -427,6 +520,9 @@ namespace Checkers
             Cases[x1, y1].checker = Cases[x2, y2].checker;
             Cases[x2, y2].checker = temp_checker;
 
+            firstbutton = null;
+            secondbutton = null;
+            my_step = !my_step;
         }
     }
 }
