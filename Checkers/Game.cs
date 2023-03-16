@@ -32,6 +32,7 @@ namespace Checkers
         public Button temp_checker;
         public bool my_step;
         
+        
 
         enum CheckForRules
         {
@@ -281,40 +282,43 @@ namespace Checkers
             if (my_step == true)
             {
                 Button clickedbutton = (Button)sender;
+                
+                if (firstbutton == null)
+                {
+                    int x = Convert.ToInt32(clickedbutton.Name) / 10;
+                    int y = Convert.ToInt32(clickedbutton.Name) % 10;
 
-                if (firstbutton != null)
+                    Check_move_checker_Color(clickedbutton, Color.Black);
+
+                    firstbutton = clickedbutton;
+                    Check_move_checker_Color(clickedbutton, Color.Yellow);
+                }
+                else
                 {
                     Check_move_checker_Color(firstbutton, Color.Black);
+                    firstbutton = null;
+
                 }
-
-                int x = Convert.ToInt32(clickedbutton.Name) / 10;
-                int y = Convert.ToInt32(clickedbutton.Name) % 10;
-
-                firstbutton = clickedbutton;
-                Check_move_checker_Color(clickedbutton, Color.Yellow);
             }
             
         }
 
-        private void Button_click_clear_button (object sender, EventArgs e)
-        {   
+        private void Button_click_clear_button(object sender, EventArgs e)
+        {
+            if (firstbutton != null)
+            {
                 Check_move_checker_Color(firstbutton, Color.Black);
 
                 Button clickedbutton = (Button)sender;
                 int x = Convert.ToInt32(clickedbutton.Name) / 10;
                 int y = Convert.ToInt32(clickedbutton.Name) % 10;
-
-                if (firstbutton != null)
+                secondbutton = clickedbutton;
+                if (Check_Move_Checker() == true)
                 {
-                    secondbutton = clickedbutton;
-                    if (Check_Move_Checker() == true)
-                    {
-
                     Swap_Two_Button();
-
-                    }
                 }
-                  
+
+            }
         }
 
         private void Button_click_player2 (object sender, EventArgs e)
@@ -323,17 +327,22 @@ namespace Checkers
             {
                 Button clickedbutton = (Button)sender;
 
-                if (firstbutton != null)
+                if (firstbutton == null)
+                {
+                    Check_move_checker_Color(clickedbutton, Color.Black);
+
+
+                    int x = Convert.ToInt32(clickedbutton.Name) / 10;
+                    int y = Convert.ToInt32(clickedbutton.Name) % 10;
+
+                    firstbutton = clickedbutton;
+                    Check_move_checker_Color(clickedbutton, Color.Yellow);
+                }
+                else
                 {
                     Check_move_checker_Color(firstbutton, Color.Black);
+                    firstbutton = null;
                 }
-
-                int x = Convert.ToInt32(clickedbutton.Name) / 10;
-                int y = Convert.ToInt32(clickedbutton.Name) % 10;
-
-                firstbutton = clickedbutton;
-                Check_move_checker_Color(clickedbutton, Color.Yellow);
-
             }
 
         }
@@ -351,7 +360,7 @@ namespace Checkers
             int x = Convert.ToInt32(clickedbutton.Name) / 10;
             int y = Convert.ToInt32(clickedbutton.Name) % 10;
 
-            if (my_step = true)
+            if (my_step == true)
             {
                 if (x == 0)
                 {
@@ -524,5 +533,16 @@ namespace Checkers
             secondbutton = null;
             my_step = !my_step;
         }
+
+        private void Check_Eat_Checker()
+        {
+
+        }
+
+        private void Eat_Checker()
+        {
+
+        }
+
     }
 }
