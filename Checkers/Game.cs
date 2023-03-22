@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using static Checkers.Game;
 
 namespace Checkers
 {
@@ -25,12 +26,14 @@ namespace Checkers
         {
             public bool have_checker;
             public Button checker;
+            public int Check_Color;
         }
         public string temp_checker_Name;
         public bool temp_have_checker;
         public Color temp_color_checker;
         public Button temp_checker;
         public bool my_step;
+        
         
         
 
@@ -119,6 +122,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player);
+                        Cases[x, y].Check_Color = 1;
                     }
                 }
                 else
@@ -128,6 +132,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player);
+                        Cases[x, y].Check_Color = 1;
                     }
                 }
             }
@@ -142,6 +147,7 @@ namespace Checkers
                     {
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
                         Cases[x, y].have_checker = true;
+                        Cases[x, y].Check_Color = 0;
                     }
                 }
                 else
@@ -150,6 +156,7 @@ namespace Checkers
                     {
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
                         Cases[x, y].have_checker = true;
+                        Cases[x, y].Check_Color = 0;
                     }
                 }
             }
@@ -166,6 +173,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
+                        Cases[x, y].Check_Color = 0;
                     }
                 }
                 else
@@ -175,6 +183,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
+                        Cases[x, y].Check_Color = 0;
                     }
                 }
             }
@@ -192,6 +201,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player);
+                        Cases[x, y].Check_Color = 0;
                     }
                 }
                 else
@@ -201,6 +211,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player);
+                        Cases[x, y].Check_Color = 0;
                     }
                 }
             }
@@ -215,6 +226,7 @@ namespace Checkers
                     {
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
                         Cases[x, y].have_checker = true;
+                        Cases[x, y].Check_Color = 1;
                     }
                 }
                 else
@@ -223,6 +235,7 @@ namespace Checkers
                     {
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
                         Cases[x, y].have_checker = true;
+                        Cases[x, y].Check_Color = 1;
                     }
                 }
             }
@@ -238,6 +251,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
+                        Cases[x, y].Check_Color = 1;
 
                     }
                 }
@@ -248,6 +262,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
+                        Cases[x, y].Check_Color = 1;
                     }
                 }
             }
@@ -263,6 +278,7 @@ namespace Checkers
                     {
                         Cases[x, y].have_checker = false;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_clear_button);
+                        Cases[x, y].Check_Color = 3;
                     }
                 }
                 else
@@ -271,6 +287,7 @@ namespace Checkers
                     {
                         Cases[x, y].have_checker = false;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_clear_button);
+                        Cases[x, y].Check_Color = 3;
                     }
                 }
             }
@@ -279,10 +296,17 @@ namespace Checkers
 
         private void Button_click_player (object sender, EventArgs e)  // Игрок выбрал 1 кнопку
         {
-            if (my_step == true)
+            Button clickedbutton = (Button)sender;
+
+            BCP(clickedbutton);
+
+        }
+
+        private void BCP (Button clickedbutton)
+        {
+            if ((my_step == true) && (Check1(clickedbutton) == true))
             {
-                Button clickedbutton = (Button)sender;
-                
+
                 if (firstbutton == null)
                 {
                     int x = Convert.ToInt32(clickedbutton.Name) / 10;
@@ -297,10 +321,16 @@ namespace Checkers
                 {
                     Check_move_checker_Color(firstbutton, Color.Black);
                     firstbutton = null;
-
                 }
             }
-            
+            else
+            {
+                if (firstbutton != null)
+                {
+                    Check_move_checker_Color(firstbutton, Color.Black);
+                    firstbutton = null;
+                }
+            }
         }
 
         private void Button_click_clear_button(object sender, EventArgs e)
@@ -313,19 +343,101 @@ namespace Checkers
                 int x = Convert.ToInt32(clickedbutton.Name) / 10;
                 int y = Convert.ToInt32(clickedbutton.Name) % 10;
                 secondbutton = clickedbutton;
+
                 if (Check_Move_Checker() == true)
                 {
                     Swap_Two_Button();
                 }
+                else
+                {
+                    firstbutton = null;
+                }
+            }
+            
+        }
+        private bool Check1(Button clickedbutton)
+        {
+            int x = Convert.ToInt32(clickedbutton.Name) / 10;
+            int y = Convert.ToInt32(clickedbutton.Name) % 10;
 
+            if (my_step == true)
+            {
+                if (x == 0)
+                {
+                    if (Cases[x + 1, y - 1].have_checker == false)
+                    {
+                        return true;
+                    }
+                }
+                else if (x == 7)
+                {
+                    if (Cases[x - 1, y - 1].have_checker == false)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+
+                    if (Cases[x - 1, y - 1].have_checker == false)
+                    {
+                        return true;
+                    }
+                    if (Cases[x + 1, y - 1].have_checker == false)
+                    {
+                        return true;
+                    }
+
+                }
+                return false;
+
+            }
+            else
+            { 
+                if (x == 0)
+                {
+                    if (Cases[x + 1, y + 1].have_checker == false)
+                    {
+                        return true;
+                    }
+                }
+                else if (x == 7)
+                {
+                    if (Cases[x - 1, y + 1].have_checker == false)
+                    {
+                        return true;
+                    }
+                }
+                else
+                {
+
+                    if (Cases[x - 1, y + 1].have_checker == false)
+                    {
+                        return true;
+                    }
+                    if (Cases[x + 1, y + 1].have_checker == false)
+                    {
+                        return true;
+                    }
+
+                }
+                return false;
             }
         }
 
         private void Button_click_player2 (object sender, EventArgs e)
         {
-            if (my_step == false)
+            Button clickedbutton = (Button)sender;
+
+            BCP2(clickedbutton);
+           
+        }
+        
+        private void BCP2 (Button clickedbutton)
+        {
+            if ((my_step == false) && (Check1(clickedbutton) == true))
             {
-                Button clickedbutton = (Button)sender;
+
 
                 if (firstbutton == null)
                 {
@@ -344,8 +456,17 @@ namespace Checkers
                     firstbutton = null;
                 }
             }
+            else
+            {
+                if (firstbutton != null)
+                {
+                    Check_move_checker_Color(firstbutton, Color.Black);
+                    firstbutton = null;
+                }
+            }
 
         }
+
         private void Button_Choice_Change_Color(Button clickedbutton)
         {
             clickedbutton.BackColor = Color.Gray;
@@ -532,11 +653,144 @@ namespace Checkers
             firstbutton = null;
             secondbutton = null;
             my_step = !my_step;
+            Check_Eat_Checker();
         }
 
         private void Check_Eat_Checker()
         {
+            for (int x = 0; x < 8; x++)
+            {
+                for (int y = 0; y < 8; y++)
+                {
 
+                    if (y > 6)
+                    {
+                        if (x == 0)
+                        {
+                            if (Cases[x + 1, y - 1].have_checker == true)
+                            {
+                                if (Cases[x + 2, y - 2].have_checker == false)
+                                {
+                                    Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                        }
+                        else if (x == 1)
+                        {
+                            if (Cases[x + 1, y - 1].have_checker == true)
+                            {
+                                if (Cases[x + 2, y - 2].have_checker == false)
+                                {
+                                    Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                        }
+                        else if (x == 6)
+                        {
+                            if (Cases[x - 1, y - 1].have_checker == true)
+                            {
+                                if (Cases[x - 2, y - 2].have_checker == false)
+                                {
+                                    Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                        }
+                        else if (x == 7)
+                        {
+                            if (Cases[x - 1, y - 1].have_checker == true)
+                            {
+                                if (Cases[x - 2, y - 2].have_checker == false)
+                                {
+                                    Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                            if (Cases[x - 1, y - 1].have_checker == true)
+                            {
+                                if (Cases[x - 2, y - 2].have_checker == false)
+                                {
+                                    Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                            if (Cases[x + 1, y - 1].have_checker == true)
+                            {
+                                if (Cases[x + 2, y - 2].have_checker == false)
+                                {
+                                    Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+
+                        }
+
+                    }
+                    else if (y < 2)
+                    {
+                        if (x == 0)
+                        {
+                            if (Cases[x + 1, y + 1].have_checker == true)
+                            {
+                                if (Cases[x + 2, y + 2].have_checker == false)
+                                {
+                                    Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                        }
+                        else if (x == 1)
+                        {
+                            if (Cases[x + 1, y + 1].have_checker == true)
+                            {
+                                if (Cases[x + 2, y + 2].have_checker == false)
+                                {
+                                    Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                        }
+                        else if (x == 6)
+                        {
+                            if (Cases[x - 1, y + 1].have_checker == true)
+                            {
+                                if (Cases[x - 2, y + 2].have_checker == false)
+                                {
+                                    Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                        }
+                        else if (x == 7)
+                        {
+                            if (Cases[x - 1, y + 1].have_checker == true)
+                            {
+                                if (Cases[x - 2, y + 2].have_checker == false)
+                                {
+                                    Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                        }
+                        else
+                        {
+
+                            if (Cases[x - 1, y + 1].have_checker == true)
+                            {
+                                if (Cases[x - 2, y + 2].have_checker == false)
+                                {
+                                    Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+                            if (Cases[x + 1, y + 1].have_checker == true)
+                            {
+                                if (Cases[x + 2, y + 2].have_checker == false)
+                                {
+                                    Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                }
+                            }
+
+                        }
+
+                    }
+                }
+            }
         }
 
         private void Eat_Checker()
