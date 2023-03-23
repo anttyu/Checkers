@@ -33,7 +33,8 @@ namespace Checkers
         public Color temp_color_checker;
         public Button temp_checker;
         public bool my_step;
-        
+        public List<Button> Black_checkers_list = new List<Button>();
+        public List<Button> White_checkers_list = new List<Button>();
         
         
 
@@ -123,6 +124,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player);
                         Cases[x, y].Check_Color = 1;
+                        Black_checkers_list.Add(Cases[x,y].checker);
                     }
                 }
                 else
@@ -133,6 +135,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player);
                         Cases[x, y].Check_Color = 1;
+                        Black_checkers_list.Add(Cases[x,y].checker);
                     }
                 }
             }
@@ -148,6 +151,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].Check_Color = 0;
+                        White_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
                 else
@@ -157,6 +161,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(white_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].Check_Color = 0;
+                        White_checkers_list.Add(Cases[x,y].checker);
                     }
                 }
             }
@@ -174,6 +179,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
                         Cases[x, y].Check_Color = 0;
+                        White_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
                 else
@@ -184,6 +190,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
                         Cases[x, y].Check_Color = 0;
+                        White_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
             }
@@ -202,6 +209,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player);
                         Cases[x, y].Check_Color = 0;
+                        White_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
                 else
@@ -212,6 +220,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player);
                         Cases[x, y].Check_Color = 0;
+                        White_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
             }
@@ -227,6 +236,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].Check_Color = 1;
+                        Black_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
                 else
@@ -236,6 +246,7 @@ namespace Checkers
                         Cases[x, y].checker.BackgroundImage = Image.FromFile(black_checker_image);
                         Cases[x, y].have_checker = true;
                         Cases[x, y].Check_Color = 1;
+                        Black_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
             }
@@ -252,6 +263,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
                         Cases[x, y].Check_Color = 1;
+                        Black_checkers_list.Add(Cases[x,y].checker);
 
                     }
                 }
@@ -263,6 +275,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
                         Cases[x, y].Check_Color = 1;
+                        Black_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
             }
@@ -653,144 +666,144 @@ namespace Checkers
             firstbutton = null;
             secondbutton = null;
             my_step = !my_step;
-            Check_Eat_Checker();
+            Check_Eat_Checker(Black_checkers_list);
         }
 
-        private void Check_Eat_Checker()
+        private void Check_Eat_Checker(List<Button> checker_list)
         {
-            for (int x = 0; x < 8; x++)
+            foreach (Button i in checker_list)
             {
-                for (int y = 0; y < 8; y++)
+                int x = Convert.ToInt32(i.Name) / 10;
+                int y = Convert.ToInt32(i.Name) % 10;
+
+                if (y > 6)
                 {
-
-                    if (y > 6)
+                    if (x == 0)
                     {
-                        if (x == 0)
+                        if (Cases[x + 1, y - 1].have_checker == true)
                         {
-                            if (Cases[x + 1, y - 1].have_checker == true)
+                            if (Cases[x + 2, y - 2].have_checker == false)
                             {
-                                if (Cases[x + 2, y - 2].have_checker == false)
-                                {
-                                    Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
                             }
                         }
-                        else if (x == 1)
+                    }
+                    else if (x == 1)
+                    {
+                        if (Cases[x + 1, y - 1].have_checker == true)
                         {
-                            if (Cases[x + 1, y - 1].have_checker == true)
+                            if (Cases[x + 2, y - 2].have_checker == false)
                             {
-                                if (Cases[x + 2, y - 2].have_checker == false)
-                                {
-                                    Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
                             }
                         }
-                        else if (x == 6)
+                    }
+                    else if (x == 6)
+                    {
+                        if (Cases[x - 1, y - 1].have_checker == true)
                         {
-                            if (Cases[x - 1, y - 1].have_checker == true)
+                            if (Cases[x - 2, y - 2].have_checker == false)
                             {
-                                if (Cases[x - 2, y - 2].have_checker == false)
-                                {
-                                    Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
                             }
                         }
-                        else if (x == 7)
+                    }
+                    else if (x == 7)
+                    {
+                        if (Cases[x - 1, y - 1].have_checker == true)
                         {
-                            if (Cases[x - 1, y - 1].have_checker == true)
+                            if (Cases[x - 2, y - 2].have_checker == false)
                             {
-                                if (Cases[x - 2, y - 2].have_checker == false)
-                                {
-                                    Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
                             }
                         }
-                        else
-                        {
+                    }
+                    else
+                    {
 
-                            if (Cases[x - 1, y - 1].have_checker == true)
+                        if (Cases[x - 1, y - 1].have_checker == true)
+                        {
+                            if (Cases[x - 2, y - 2].have_checker == false)
                             {
-                                if (Cases[x - 2, y - 2].have_checker == false)
-                                {
-                                    Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
                             }
-                            if (Cases[x + 1, y - 1].have_checker == true)
+                        }
+                        if (Cases[x + 1, y - 1].have_checker == true)
+                        {
+                            if (Cases[x + 2, y - 2].have_checker == false)
                             {
-                                if (Cases[x + 2, y - 2].have_checker == false)
-                                {
-                                    Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
                             }
-
                         }
 
                     }
-                    else if (y < 2)
+
+                }
+                else if (y < 2)
+                {
+                    if (x == 0)
                     {
-                        if (x == 0)
+                        if (Cases[x + 1, y + 1].have_checker == true)
                         {
-                            if (Cases[x + 1, y + 1].have_checker == true)
+                            if (Cases[x + 2, y + 2].have_checker == false)
                             {
-                                if (Cases[x + 2, y + 2].have_checker == false)
-                                {
-                                    Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
                             }
                         }
-                        else if (x == 1)
+                    }
+                    else if (x == 1)
+                    {
+                        if (Cases[x + 1, y + 1].have_checker == true)
                         {
-                            if (Cases[x + 1, y + 1].have_checker == true)
+                            if (Cases[x + 2, y + 2].have_checker == false)
                             {
-                                if (Cases[x + 2, y + 2].have_checker == false)
-                                {
-                                    Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
                             }
                         }
-                        else if (x == 6)
+                    }
+                    else if (x == 6)
+                    {
+                        if (Cases[x - 1, y + 1].have_checker == true)
                         {
-                            if (Cases[x - 1, y + 1].have_checker == true)
+                            if (Cases[x - 2, y + 2].have_checker == false)
                             {
-                                if (Cases[x - 2, y + 2].have_checker == false)
-                                {
-                                    Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
                             }
                         }
-                        else if (x == 7)
+                    }
+                    else if (x == 7)
+                    {
+                        if (Cases[x - 1, y + 1].have_checker == true)
                         {
-                            if (Cases[x - 1, y + 1].have_checker == true)
+                            if (Cases[x - 2, y + 2].have_checker == false)
                             {
-                                if (Cases[x - 2, y + 2].have_checker == false)
-                                {
-                                    Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
                             }
                         }
-                        else
-                        {
+                    }
+                    else
+                    {
 
-                            if (Cases[x - 1, y + 1].have_checker == true)
+                        if (Cases[x - 1, y + 1].have_checker == true)
+                        {
+                            if (Cases[x - 2, y + 2].have_checker == false)
                             {
-                                if (Cases[x - 2, y + 2].have_checker == false)
-                                {
-                                    Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
                             }
-                            if (Cases[x + 1, y + 1].have_checker == true)
+                        }
+                        if (Cases[x + 1, y + 1].have_checker == true)
+                        {
+                            if (Cases[x + 2, y + 2].have_checker == false)
                             {
-                                if (Cases[x + 2, y + 2].have_checker == false)
-                                {
-                                    Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
-                                }
+                                Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
                             }
-
                         }
 
                     }
+
                 }
             }
+
         }
 
         private void Eat_Checker()
