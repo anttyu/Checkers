@@ -70,8 +70,7 @@ namespace Checkers
         }
 
         private void Case_create() // Метод создания клеток
-        {
-            
+        { 
             for (int x = 0; x < 8; x++)
             {
                 for (int y = 0; y < 8; y++)
@@ -86,8 +85,7 @@ namespace Checkers
         private void Game_Rule() //метод оперделения правил
         {
             switch (GameRule)
-            {
-                
+            { 
                 case ("pcwhite"):
                     rule.gamemode = Rules.CheckForRules.pcwhite;
                     rule.my_step = true;
@@ -119,7 +117,6 @@ namespace Checkers
                     Black_checkers_create();
                     For_Player2_White_checkers_create_for_black();
                     break;
-
             }
             For_Clear_Cases();
         } 
@@ -177,7 +174,6 @@ namespace Checkers
                     }
                 }
             }
-
         }
         private void For_Player2_White_checkers_create_for_black()  // 2 Часть создания клеток для игры С ИГРОКОМ за черные
         {
@@ -206,7 +202,6 @@ namespace Checkers
                     }
                 }
             }
-
         }
 
         private void White_checkers_create()  // 1 Часть создания клеток для игры за белые
@@ -275,8 +270,7 @@ namespace Checkers
                         Cases[x, y].have_checker = true;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_player2);
                         Cases[x, y].Check_Color = 1;
-                        Black_checkers_list.Add(Cases[x,y].checker);
-
+                        Black_checkers_list.Add(Cases[x, y].checker);
                     }
                 }
                 else
@@ -316,15 +310,12 @@ namespace Checkers
                     }
                 }
             }
-
         }
 
         private void Button_click_player (object sender, EventArgs e)  // Игрок выбрал 1 кнопку
         {
             Button clickedbutton = (Button)sender;
-
             BCP(clickedbutton);
-
         }
 
         private void BCP (Button clickedbutton)
@@ -370,15 +361,10 @@ namespace Checkers
                 secondbutton = clickedbutton;
 
                 if (Check_Move_Checker() == true)
-                {
                     Swap_Two_Button();
-                }
                 else
-                {
                     firstbutton = null;
-                }
             }
-            
         }
         private bool Check1(Button clickedbutton)
         {
@@ -390,61 +376,42 @@ namespace Checkers
                 if (x == 0)
                 {
                     if (Cases[x + 1, y - 1].have_checker == false)
-                    {
                         return true;
-                    }
                 }
                 else if (x == 7)
                 {
                     if (Cases[x - 1, y - 1].have_checker == false)
-                    {
                         return true;
-                    }
                 }
                 else
                 {
-
                     if (Cases[x - 1, y - 1].have_checker == false)
-                    {
                         return true;
-                    }
-                    if (Cases[x + 1, y - 1].have_checker == false)
-                    {
-                        return true;
-                    }
 
+                    if (Cases[x + 1, y - 1].have_checker == false)
+                        return true;
                 }
                 return false;
-
             }
             else
             { 
                 if (x == 0)
                 {
                     if (Cases[x + 1, y + 1].have_checker == false)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 else if (x == 7)
                 {
                     if (Cases[x - 1, y + 1].have_checker == false)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 else
                 {
-
                     if (Cases[x - 1, y + 1].have_checker == false)
-                    {
-                        return true;
-                    }
-                    if (Cases[x + 1, y + 1].have_checker == false)
-                    {
-                        return true;
-                    }
+                    return true;
 
+                    if (Cases[x + 1, y + 1].have_checker == false)
+                        return true;
                 }
                 return false;
             }
@@ -453,22 +420,16 @@ namespace Checkers
         private void Button_click_player2 (object sender, EventArgs e)
         {
             Button clickedbutton = (Button)sender;
-
             BCP2(clickedbutton);
-           
         }
         
         private void BCP2 (Button clickedbutton)
         {
             if ((rule.my_step == false) && (Check1(clickedbutton) == true))
             {
-
-
                 if (firstbutton == null)
                 {
                     Check_move_checker_Color(clickedbutton, Color.Black);
-
-
                     int x = Convert.ToInt32(clickedbutton.Name) / 10;
                     int y = Convert.ToInt32(clickedbutton.Name) % 10;
 
@@ -489,9 +450,7 @@ namespace Checkers
                     firstbutton = null;
                 }
             }
-
         }
-
         private void Button_Choice_Change_Color(Button clickedbutton)
         {
             clickedbutton.BackColor = Color.Gray;
@@ -511,29 +470,20 @@ namespace Checkers
                 if (x == 0)
                 {
                     if (Cases[x + 1, y - 1].have_checker == false)
-                    {
                         Cases[x + 1, y - 1].checker.BackColor = temp_clr;
-                    }
                 }
                 else if (x == 7)
                 {
                     if (Cases[x - 1, y - 1].have_checker == false)
-                    {
-                        Cases[x - 1, y - 1].checker.BackColor = temp_clr;
-                    }
+                    Cases[x - 1, y - 1].checker.BackColor = temp_clr;
                 }
                 else
                 {
-
                     if (Cases[x - 1, y - 1].have_checker == false)
-                    {
-                        Cases[x - 1, y - 1].checker.BackColor = temp_clr;
-                    }
-                    if (Cases[x + 1, y - 1].have_checker == false)
-                    {
-                        Cases[x + 1, y - 1].checker.BackColor = temp_clr;
-                    }
+                    Cases[x - 1, y - 1].checker.BackColor = temp_clr;
 
+                    if (Cases[x + 1, y - 1].have_checker == false)
+                    Cases[x + 1, y - 1].checker.BackColor = temp_clr;
                 }
             }
             else
@@ -541,29 +491,20 @@ namespace Checkers
                 if (x == 0)
                 {
                     if (Cases[x + 1, y + 1].have_checker == false)
-                    {
-                        Cases[x + 1, y + 1].checker.BackColor = temp_clr;
-                    }
+                    Cases[x + 1, y + 1].checker.BackColor = temp_clr;
                 }
                 else if (x == 7)
                 {
                     if (Cases[x - 1, y + 1].have_checker == false)
-                    {
-                        Cases[x - 1, y + 1].checker.BackColor = temp_clr;
-                    }
+                    Cases[x - 1, y + 1].checker.BackColor = temp_clr;
                 }
                 else
                 {
-
                     if (Cases[x - 1, y + 1].have_checker == false)
-                    {
-                        Cases[x - 1, y + 1].checker.BackColor = temp_clr;
-                    }
-                    if (Cases[x + 1, y + 1].have_checker == false)
-                    {
-                        Cases[x + 1, y + 1].checker.BackColor = temp_clr;
-                    }
+                    Cases[x - 1, y + 1].checker.BackColor = temp_clr;
 
+                    if (Cases[x + 1, y + 1].have_checker == false)
+                    Cases[x + 1, y + 1].checker.BackColor = temp_clr;
                 }
             }
             
@@ -578,61 +519,42 @@ namespace Checkers
                 if (x == 0)
                 {
                     if (Cases[x + 1, y - 1].checker == secondbutton)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 else if (x == 7)
                 {
                     if (Cases[x - 1, y - 1].checker == secondbutton)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 else
                 {
-
                     if (Cases[x - 1, y - 1].checker == secondbutton)
-                    {
-                        return true;
-                    }
-                    if (Cases[x + 1, y - 1].checker == secondbutton)
-                    {
-                        return true;
-                    }
+                    return true;
 
+                    if (Cases[x + 1, y - 1].checker == secondbutton)
+                    return true;
                 }
                 return false;
-
             }
             else
             {
                 if (x == 0)
                 {
                     if (Cases[x + 1, y + 1].checker == secondbutton)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 else if (x == 7)
                 {
                     if (Cases[x - 1, y + 1].checker == secondbutton)
-                    {
-                        return true;
-                    }
+                    return true;
                 }
                 else
                 {
-
                     if (Cases[x - 1, y + 1].checker == secondbutton)
-                    {
-                        return true;
-                    }
-                    if (Cases[x + 1, y + 1].checker == secondbutton)
-                    {
-                        return true;
-                    }
+                    return true;
 
+                    if (Cases[x + 1, y + 1].checker == secondbutton)
+                        return true;
                 }
                 return false;
             }
@@ -694,69 +616,43 @@ namespace Checkers
                     if (x == 0)
                     {
                         if (Cases[x + 1, y - 1].have_checker == true)
-                        {
                             if (Cases[x + 2, y - 2].have_checker == false)
-                            {
-                                Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
-                            }
-                        }
+                                Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue; 
                     }
                     else if (x == 1)
                     {
                         if (Cases[x + 1, y - 1].have_checker == true)
-                        {
                             if (Cases[x + 2, y - 2].have_checker == false)
-                            {
-                                Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
-                            }
-                        }
+                            Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
                     }
                     else if (x == 6)
                     {
                         if (Cases[x - 1, y - 1].have_checker == true)
-                        {
                             if (Cases[x - 2, y - 2].have_checker == false)
-                            {
-                                Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
-                            }
-                        }
+                            Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
                     }
                     else if (x == 7)
                     {
                         if (Cases[x - 1, y - 1].have_checker == true)
-                        {
                             if (Cases[x - 2, y - 2].have_checker == false)
-                            {
                                 Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
-                            }
-                        }
                     }
                     else
                     {
-
                         if (Cases[x - 1, y - 1].have_checker == true)
-                        {
                             if (Cases[x - 2, y - 2].have_checker == false)
-                            {
-                                Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
-                            }
-                        }
+                            Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
+
                         if (Cases[x + 1, y - 1].have_checker == true)
-                        {
                             if (Cases[x + 2, y - 2].have_checker == false)
-                            {
                                 Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
-                            }
-                        }
-
                     }
-
                 }
                 else if (y < 2)
                 {
                     if (x == 0)
                     {
-                        if (Cases[x + 1, y + 1].have_checker == true
+                        if (Cases[x + 1, y + 1].have_checker == true)
                             if (Cases[x + 2, y + 2].have_checker == false)
                             Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
                     }
@@ -788,10 +684,8 @@ namespace Checkers
                             if (Cases[x + 2, y + 2].have_checker == false)
                                 Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
                     }
-
                 }
             }
-
         }
 
         private void Eat_Checker()
