@@ -709,7 +709,7 @@ namespace Checkers
                 rule.turn = "white";
             else
                 rule.turn = "black";
-            Need_eat_checkers_list.Clear();
+            
         }
 
     }
