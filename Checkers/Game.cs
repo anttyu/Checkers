@@ -36,6 +36,7 @@ namespace Checkers
 
         public List<Button> Black_checkers_list = new List<Button>();
         public List<Button> White_checkers_list = new List<Button>();
+        public List<Button> Need_eat_checkers_list = new List<Button>();
 
         Case_checker[,] Cases = new Case_checker[8, 8];
         TableLayoutPanel tableLayoutPanel;
@@ -315,7 +316,12 @@ namespace Checkers
         private void Button_click_player (object sender, EventArgs e)  // Игрок выбрал 1 кнопку
         {
             Button clickedbutton = (Button)sender;
-            BCP(clickedbutton);
+
+            if (Need_eat_checkers_list.Count == 0)
+                BCP(clickedbutton);
+            else if (Need_eat_checkers_list.Contains(clickedbutton))
+                BCP(clickedbutton);
+            else MessageBox.Show("Имеется шашка которую необходимо срубить");
         }
 
         private void BCP (Button clickedbutton)
@@ -606,10 +612,10 @@ namespace Checkers
 
         private void Check_Eat_Checker(List<Button> checker_list)
         {
-            foreach (Button i in checker_list)
+            foreach (Button button_ in checker_list)
             {
-                int x = Convert.ToInt32(i.Name) / 10;
-                int y = Convert.ToInt32(i.Name) % 10;
+                int x = Convert.ToInt32(button_.Name) / 10;
+                int y = Convert.ToInt32(button_.Name) % 10;
 
                 if (y > 6)
                 {
@@ -617,35 +623,35 @@ namespace Checkers
                     {
                         if (Cases[x + 1, y - 1].have_checker == true)
                             if (Cases[x + 2, y - 2].have_checker == false)
-                                Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue; 
+                                Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 1)
                     {
                         if (Cases[x + 1, y - 1].have_checker == true)
                             if (Cases[x + 2, y - 2].have_checker == false)
-                            Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 6)
                     {
                         if (Cases[x - 1, y - 1].have_checker == true)
                             if (Cases[x - 2, y - 2].have_checker == false)
-                            Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 7)
                     {
                         if (Cases[x - 1, y - 1].have_checker == true)
                             if (Cases[x - 2, y - 2].have_checker == false)
-                                Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
                     }
                     else
                     {
                         if (Cases[x - 1, y - 1].have_checker == true)
                             if (Cases[x - 2, y - 2].have_checker == false)
-                            Cases[x - 2, y - 2].checker.BackColor = Color.AliceBlue;
+                            Need_eat_checkers_list.Add(button_);
 
                         if (Cases[x + 1, y - 1].have_checker == true)
                             if (Cases[x + 2, y - 2].have_checker == false)
-                                Cases[x + 2, y - 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
                     }
                 }
                 else if (y < 2)
@@ -654,35 +660,35 @@ namespace Checkers
                     {
                         if (Cases[x + 1, y + 1].have_checker == true)
                             if (Cases[x + 2, y + 2].have_checker == false)
-                            Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 1)
                     {
                         if (Cases[x + 1, y + 1].have_checker == true)
                             if (Cases[x + 2, y + 2].have_checker == false)
-                                Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 6)
                     {
                         if (Cases[x - 1, y + 1].have_checker == true)
                             if (Cases[x - 2, y + 2].have_checker == false)
-                                Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 7)
                     {
                         if (Cases[x - 1, y + 1].have_checker == true)
                             if (Cases[x - 2, y + 2].have_checker == false)
-                            Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
+                            Need_eat_checkers_list.Add(button_);
                     }
                     else
                     {
                         if (Cases[x - 1, y + 1].have_checker == true)
                             if (Cases[x - 2, y + 2].have_checker == false)
-                                Cases[x - 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
 
                         if (Cases[x + 1, y + 1].have_checker == true)
                             if (Cases[x + 2, y + 2].have_checker == false)
-                                Cases[x + 2, y + 2].checker.BackColor = Color.AliceBlue;
+                                Need_eat_checkers_list.Add(button_);
                     }
                 }
             }
@@ -703,6 +709,7 @@ namespace Checkers
                 rule.turn = "white";
             else
                 rule.turn = "black";
+            Need_eat_checkers_list.Clear();
         }
 
     }
