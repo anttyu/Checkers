@@ -621,37 +621,43 @@ namespace Checkers
                 {
                     if (x == 0)
                     {
-                        if (Cases[x + 1, y - 1].have_checker == true)
-                            if (Cases[x + 2, y - 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                        if (Cases[x + 1, y - 1].have_checker == true) 
+                            if (Cases[x, y].Check_Color != Cases[x + 1, y - 1].Check_Color)
+                                if (Cases[x + 2, y - 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 1)
                     {
                         if (Cases[x + 1, y - 1].have_checker == true)
-                            if (Cases[x + 2, y - 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x + 1, y - 1].Check_Color)
+                                if (Cases[x + 2, y - 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 6)
                     {
                         if (Cases[x - 1, y - 1].have_checker == true)
-                            if (Cases[x - 2, y - 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x - 1, y - 1].Check_Color)
+                                if (Cases[x - 2, y - 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 7)
                     {
                         if (Cases[x - 1, y - 1].have_checker == true)
-                            if (Cases[x - 2, y - 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x - 1, y - 1].Check_Color)
+                                if (Cases[x - 2, y - 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                     else
                     {
                         if (Cases[x - 1, y - 1].have_checker == true)
-                            if (Cases[x - 2, y - 2].have_checker == false)
-                            Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x - 1, y - 1].Check_Color)
+                                if (Cases[x - 2, y - 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
 
                         if (Cases[x + 1, y - 1].have_checker == true)
-                            if (Cases[x + 2, y - 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x + 1, y - 1].Check_Color)
+                                if (Cases[x + 2, y - 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                 }
                 else if (y < 2)
@@ -659,36 +665,42 @@ namespace Checkers
                     if (x == 0)
                     {
                         if (Cases[x + 1, y + 1].have_checker == true)
-                            if (Cases[x + 2, y + 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x + 1, y + 1].Check_Color)
+                                if (Cases[x + 2, y + 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 1)
                     {
                         if (Cases[x + 1, y + 1].have_checker == true)
-                            if (Cases[x + 2, y + 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                                if (Cases[x, y].Check_Color != Cases[x + 1, y + 1].Check_Color)
+                                    if (Cases[x + 2, y + 2].have_checker == false)
+                                       Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 6)
                     {
                         if (Cases[x - 1, y + 1].have_checker == true)
-                            if (Cases[x - 2, y + 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x - 1, y + 1].Check_Color)
+                                if (Cases[x - 2, y + 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                     else if (x == 7)
                     {
                         if (Cases[x - 1, y + 1].have_checker == true)
-                            if (Cases[x - 2, y + 2].have_checker == false)
-                            Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x - 1, y + 1].Check_Color)
+                                if (Cases[x - 2, y + 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                     else
                     {
                         if (Cases[x - 1, y + 1].have_checker == true)
-                            if (Cases[x - 2, y + 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                            if(Cases[x, y].Check_Color != Cases[x - 1, y + 1].Check_Color)
+                                if (Cases[x - 2, y + 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
 
                         if (Cases[x + 1, y + 1].have_checker == true)
-                            if (Cases[x + 2, y + 2].have_checker == false)
-                                Need_eat_checkers_list.Add(button_);
+                            if (Cases[x, y].Check_Color != Cases[x + 1, y + 1].Check_Color)
+                                if (Cases[x + 2, y + 2].have_checker == false)
+                                    Need_eat_checkers_list.Add(button_);
                     }
                 }
             }
