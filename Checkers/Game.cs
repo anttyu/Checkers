@@ -426,7 +426,12 @@ namespace Checkers
         private void Button_click_player2 (object sender, EventArgs e)
         {
             Button clickedbutton = (Button)sender;
-            BCP2(clickedbutton);
+
+            if (Need_eat_checkers_list.Count == 0)
+                BCP2(clickedbutton);
+            else if (Need_eat_checkers_list.Contains(clickedbutton))
+                BCP2(clickedbutton);
+            else MessageBox.Show("Имеется шашка которую необходимо срубить");
         }
         
         private void BCP2 (Button clickedbutton)
@@ -612,6 +617,7 @@ namespace Checkers
             else
                 Check_Eat_Checker(White_checkers_list);
             Clear_temp();
+            label1.Text = Convert.ToString(Need_eat_checkers_list.Count);
         }
 
         private void Check_Eat_Checker(List<Button> checker_list)
@@ -646,7 +652,6 @@ namespace Checkers
                     }
                     else if (x == 7)
                     {
-                        if (Cases[x - 1, y - 1].have_checker == true)
                             if (Cases[x, y].Check_Color != Cases[x - 1, y - 1].Check_Color)
                                 if (Cases[x - 2, y - 2].have_checker == false)
                                     Need_eat_checkers_list.Add(button_);
@@ -724,8 +729,7 @@ namespace Checkers
             if (rule.turn == "black")
                 rule.turn = "white";
             else
-                rule.turn = "black";
-            label1.Text = Convert.ToString(Need_eat_checkers_list.Count);
+                rule.turn = "black";           
         }
 
     }
