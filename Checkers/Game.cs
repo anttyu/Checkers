@@ -18,7 +18,7 @@ namespace Checkers
 
         public Game()
         {
-            InitializeComponent();
+            InitializeComponent(); 
             tableLayoutPanel = this.Controls["tableLayoutPanel1"] as TableLayoutPanel;
         }
 
@@ -31,7 +31,7 @@ namespace Checkers
 
         public string temp_checker_Name;
         public bool temp_have_checker;
-        public Color temp_color_checker;
+        public int temp_color_checker;
         public Button temp_checker;
 
         public List<Button> Black_checkers_list = new List<Button>();
@@ -70,7 +70,7 @@ namespace Checkers
             Game_Rule();
         }
 
-        private void Case_create() // Метод создания клеток
+        private void Case_create()
         { 
             for (int x = 0; x < 8; x++)
             {
@@ -83,7 +83,7 @@ namespace Checkers
             }
         }
 
-        private void Game_Rule() //метод оперделения правил
+        private void Game_Rule()
         {
             switch (GameRule)
             { 
@@ -122,7 +122,7 @@ namespace Checkers
             For_Clear_Cases();
         } 
 
-        private void Black_checkers_create ()  // 1 Часть создания клеток для игры за черные
+        private void Black_checkers_create ()
         {
             for (int y = 5; y < 8; y++)
             {
@@ -150,7 +150,7 @@ namespace Checkers
                 }
             }
         } 
-        private void For_PC_White_checkers_create_for_black ()  // 2 Часть создания клеток для игры С КОМПЬЮТЕРОМ  за черные
+        private void For_PC_White_checkers_create_for_black ()
         {
             for (int y = 0; y < 3; y++)
             {
@@ -176,7 +176,7 @@ namespace Checkers
                 }
             }
         }
-        private void For_Player2_White_checkers_create_for_black()  // 2 Часть создания клеток для игры С ИГРОКОМ за черные
+        private void For_Player2_White_checkers_create_for_black()
         {
             for (int y = 0; y < 3; y++)
             {
@@ -205,7 +205,7 @@ namespace Checkers
             }
         }
 
-        private void White_checkers_create()  // 1 Часть создания клеток для игры за белые
+        private void White_checkers_create() 
         {
             for (int y = 5; y < 8; y++)
             {
@@ -233,7 +233,7 @@ namespace Checkers
                 }
             }
         } 
-        private void For_PC_Black_checkers_create_for_white()  // 2 Часть создания клеток для игры С КОМПЬЮТЕРОМ за белые
+        private void For_PC_Black_checkers_create_for_white() 
         {
             for (int y = 0; y < 3; y++)
             {
@@ -259,7 +259,7 @@ namespace Checkers
                 }
             }
         }
-        private void For_Player2_Black_checkers_create_for_white()  // 2 Часть создания клеток для игры С ИГРОКОМ за белые
+        private void For_Player2_Black_checkers_create_for_white()  
         {
             for (int y = 0; y < 3; y++)
             {
@@ -288,7 +288,7 @@ namespace Checkers
             }
         }
 
-        private void For_Clear_Cases()  // Пустые кнопки
+        private void For_Clear_Cases()
         {
             for (int y = 3; y < 5; y++)
             {
@@ -298,7 +298,7 @@ namespace Checkers
                     {
                         Cases[x, y].have_checker = false;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_clear_button);
-                        Cases[x, y].Check_Color = 3;
+                        Cases[x, y].Check_Color = 2;
                     }
                 }
                 else
@@ -307,13 +307,13 @@ namespace Checkers
                     {
                         Cases[x, y].have_checker = false;
                         Cases[x, y].checker.Click += new EventHandler(Button_click_clear_button);
-                        Cases[x, y].Check_Color = 3;
+                        Cases[x, y].Check_Color = 2;
                     }
                 }
             }
         }
 
-        private void Button_click_player (object sender, EventArgs e)  // Игрок выбрал 1 кнопку
+        private void Button_click_player (object sender, EventArgs e)  
         {
             Button clickedbutton = (Button)sender;
 
@@ -466,7 +466,7 @@ namespace Checkers
             clickedbutton.BackColor = Color.Black;
         }
 
-        private void Check_move_checker_Color (Button clickedbutton, Color temp_clr) // метод покраски кнопок с возможным ходом для шашки
+        private void Check_move_checker_Color (Button clickedbutton, Color temp_clr)  
         {
             int x = Convert.ToInt32(clickedbutton.Name) / 10;
             int y = Convert.ToInt32(clickedbutton.Name) % 10;
@@ -603,7 +603,11 @@ namespace Checkers
             Cases[x1, y1].checker = Cases[x2, y2].checker;
             Cases[x2, y2].checker = temp_checker;
 
-            if (rule.turn == "black")
+            temp_color_checker = Cases[x1, y1].Check_Color;
+            Cases[x1, y1].Check_Color = Cases[x2, y2].Check_Color;
+            Cases[x2, y2].Check_Color = temp_color_checker;
+
+            if (rule.turn == "white")
                 Check_Eat_Checker(Black_checkers_list);
             else
                 Check_Eat_Checker(White_checkers_list);
@@ -621,8 +625,8 @@ namespace Checkers
                 {
                     if (x == 0)
                     {
-                        if (Cases[x + 1, y - 1].have_checker == true) 
-                            if (Cases[x, y].Check_Color != Cases[x + 1, y - 1].Check_Color)
+                        if (Cases[x + 1, y - 1].have_checker == true)
+                            if (Cases[x,y].Check_Color != Cases[x + 1, y - 1].Check_Color)
                                 if (Cases[x + 2, y - 2].have_checker == false)
                                     Need_eat_checkers_list.Add(button_);
                     }
@@ -721,7 +725,7 @@ namespace Checkers
                 rule.turn = "white";
             else
                 rule.turn = "black";
-            
+            label1.Text = Convert.ToString(Need_eat_checkers_list.Count);
         }
 
     }
