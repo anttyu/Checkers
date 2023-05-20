@@ -33,6 +33,7 @@ namespace Checkers
         public bool temp_have_checker;
         public int temp_color_checker;
         public Button temp_checker;
+        public int chec;
 
         public List<Button> Black_checkers_list = new List<Button>();
         public List<Button> White_checkers_list = new List<Button>();
@@ -316,7 +317,7 @@ namespace Checkers
         private void Button_click_player (object sender, EventArgs e)  
         {
             Button clickedbutton = (Button)sender;
-
+            label3.Text = clickedbutton.Name;
             if (Need_eat_checkers_list.Count == 0)
                 BCP(clickedbutton);
             else if (Need_eat_checkers_list.Contains(clickedbutton))
@@ -426,6 +427,7 @@ namespace Checkers
         private void Button_click_player2 (object sender, EventArgs e)
         {
             Button clickedbutton = (Button)sender;
+            label3.Text = clickedbutton.Name;
 
             if (Need_eat_checkers_list.Count == 0)
                 BCP2(clickedbutton);
@@ -617,6 +619,7 @@ namespace Checkers
             else
                 Check_Eat_Checker(White_checkers_list);
             Clear_temp();
+
             label1.Text = Convert.ToString(Need_eat_checkers_list.Count);
         }
 
@@ -624,11 +627,15 @@ namespace Checkers
         {
             foreach (Button button_ in checker_list)
             {
+
                 int x = Convert.ToInt32(button_.Name) / 10;
                 int y = Convert.ToInt32(button_.Name) % 10;
 
                 if (y > 6)
                 {
+                    chec++;
+                    label2.Text = Convert.ToString(chec);
+
                     if (x == 0)
                     {
                         if (Cases[x + 1, y - 1].have_checker == true)
@@ -717,9 +724,9 @@ namespace Checkers
 
         private void Eat_Checker()
         {
-
+            if()
         }
-        
+
         public void Clear_temp()
         {
             firstbutton = null;
@@ -729,8 +736,7 @@ namespace Checkers
             if (rule.turn == "black")
                 rule.turn = "white";
             else
-                rule.turn = "black";           
+                rule.turn = "black";        
         }
-
     }
 }
