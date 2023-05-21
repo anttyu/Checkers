@@ -631,7 +631,7 @@ namespace Checkers
                 int x = Convert.ToInt32(button_.Name) / 10;
                 int y = Convert.ToInt32(button_.Name) % 10;
 
-                if (y > 6)
+                if (y > 3)
                 {
                     chec++;
                     label2.Text = Convert.ToString(chec);
@@ -676,7 +676,7 @@ namespace Checkers
                                     Need_eat_checkers_list.Add(button_);
                     }
                 }
-                else if (y < 2)
+                else if (y < 4)
                 {
                     if (x == 0)
                     {
@@ -724,7 +724,7 @@ namespace Checkers
 
         private void Eat_Checker()
         {
-            if()
+
         }
 
         public void Clear_temp()

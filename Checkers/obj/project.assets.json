@@ -8,23 +8,23 @@
     "net6.0-windows7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\tonit\\.nuget\\packages\\": {},
-    "D:\\VScomp\\NuGetPackages": {}
+    "C:\\Users\\Opasniy\\.nuget\\packages\\": {},
+    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tonit\\Source\\Repos\\horoshiyBoy\\Checkers\\Checkers\\Checkers.csproj",
+      "projectUniqueName": "C:\\Users\\Opasniy\\Source\\Repos\\horoshiyBoy\\Checkers\\Checkers\\Checkers.csproj",
       "projectName": "Checkers",
-      "projectPath": "C:\\Users\\tonit\\Source\\Repos\\horoshiyBoy\\Checkers\\Checkers\\Checkers.csproj",
-      "packagesPath": "C:\\Users\\tonit\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tonit\\Source\\Repos\\horoshiyBoy\\Checkers\\Checkers\\obj\\",
+      "projectPath": "C:\\Users\\Opasniy\\Source\\Repos\\horoshiyBoy\\Checkers\\Checkers\\Checkers.csproj",
+      "packagesPath": "C:\\Users\\Opasniy\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Opasniy\\Source\\Repos\\horoshiyBoy\\Checkers\\Checkers\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "D:\\VScomp\\NuGetPackages"
+        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\tonit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Opasniy\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
